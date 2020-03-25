@@ -899,9 +899,11 @@ class Plyara(Parser):
                            | ASCII
                            | WIDE
                            | FULLWORD
-                           | XOR_MOD'''
-        logger.debug('Matched a string modifier: {}'.format(p[1]))
-        self._add_element(ElementTypes.STRINGS_MODIFIER, p[1])
+                           | XOR_MOD
+                           | XOR_MOD LPAREN HEXNUM HYPHEN HEXNUM RPAREN'''
+        mod_str = ''.join([x for x in p if x is not None])
+        logger.debug('Matched a string modifier: {}'.format(mod_str))
+        self._add_element(ElementTypes.STRINGS_MODIFIER, mod_str)
 
     @staticmethod
     def p_comments(p):
